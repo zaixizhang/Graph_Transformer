@@ -1,6 +1,3 @@
-# Copyright (c) Microsoft Corporation.
-# Licensed under the MIT License.
-
 from torch.optim.lr_scheduler import _LRScheduler
 
 

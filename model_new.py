@@ -3,7 +3,7 @@ import torch
 import math
 import torch.nn as nn
 from torch.nn import functional as F
-from utils.flag import flag_bounded
+from flag import flag_bounded
 
 
 def init_params(module, n_layers):
