@@ -47,7 +47,7 @@ def column_normalize(mx):
 
 def process_data(p=None):
     name = 'cora'
-    dataset = Planetoid(root='/data/', name=name, transform=T.NormalizeFeatures())
+    dataset = Planetoid(root='./data/', name=name, transform=T.NormalizeFeatures())
     data = dataset[0]
     adj = sp.coo_matrix((np.ones(data.edge_index.shape[1]), (data.edge_index[0], data.edge_index[1])),
                                 shape=(data.y.shape[0], data.y.shape[0]),
@@ -59,8 +59,7 @@ def process_data(p=None):
     power_adj_list = [normalized_adj]
     for m in range(5):
         power_adj_list.append(power_adj_list[0]*power_adj_list[m])
-    #pe = eigenvector(sp.eye(adj.shape[0]) - normalized_adj)
-    #data.x = torch.cat([data.x, pe], dim=1)
+
     eigen_adj = c * inv((sp.eye(adj.shape[0]) - (1 - c) * normalized_adj).toarray())
 
     #create subgraph samples
@@ -84,14 +83,14 @@ def process_data(p=None):
                                     torch.tensor(top_neighbor_index[: k-sample_num], dtype=int)])
             attn_bias = torch.cat([torch.tensor(i[node_feature_id, :][:, node_feature_id].toarray(), dtype=torch.float32).unsqueeze(0) for i in power_adj_list])
             attn_bias = attn_bias.permute(1, 2, 0)
-            feature_id = torch.cat([node_feature_id, torch.tensor(super_node_list + data.y.shape[0], dtype=int)])
+
             label = data.y[node_feature_id]
-            sub_data_list.append([attn_bias, feature_id, label])
+            sub_data_list.append([attn_bias, node_feature_id, label])
         data_list.append(sub_data_list)
 
     feature = data.x
-    torch.save(data_list, '/dataset/'+name+'/data.pt')
-    torch.save(feature, '/dataset/'+name+'/feature.pt')
+    torch.save(data_list, './dataset/'+name+'/data.pt')
+    torch.save(feature, './dataset/'+name+'/feature.pt')
 
 
 if __name__ == '__main__':
