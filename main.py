@@ -127,8 +127,8 @@ def main():
     args = parser.parse_args()
     device = torch.device("cuda:" + str(args.device)) if torch.cuda.is_available() else torch.device("cpu")
 
-    data_list = torch.load('/dataset/data.pt')
-    feature = torch.load('/dataset/feature.pt')
+    data_list = torch.load('./dataset/data.pt')
+    feature = torch.load('./dataset/feature.pt')
     train_dataset, test_dataset, valid_dataset = random_split(data_list, frac_train=0.6, frac_valid=0.2,
                                                               frac_test=0.2, seed=args.seed)
     print('dataset load successfully')
