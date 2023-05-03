@@ -1,41 +1,9 @@
-# ANS-GT
-Pytorch implementation of NeurIPS'22 paper "Hierarchical Graph Transformer with Adaptive Node Sampling"(https://arxiv.org/abs/2210.03930)
+# Graph_Transformer
+A pytorch implementation of Graph Transformer for node classification.
 
-The preliminary version of our code: https://github.com/zaixizhang/Graph_Transformer
+Our implementation is based on "Do Transformers Really Perform Bad for Graph Representation" (NeurIPS'21) [[paper]](https://proceedings.neurips.cc/paper/2021/hash/f1c1592588411002af340cbaedd6fc33-Abstract.html) [[github]](https://github.com/microsoft/Graphormer) and "Gophormer: Ego-Graph Transformer for Node Classification" [[arxiv]](https://arxiv.org/abs/2110.13094)
 
+## Run the code  
+Use preprocess_data.py for data preprocessing
 
-### Python environment setup with Conda
-
-```bash
-conda create -n gt python=3.9
-conda activate gt
-
-conda install pytorch=1.10 torchvision torchaudio -c pytorch -c nvidia
-conda install pyg=2.0.4 -c pyg -c conda-forge
-
-pip install ogb
-pip install pygsp
-pip install scipy
-
-conda clean --all
-```
-
-
-### Running the Code
-```bash
-conda activate gt
-python3 preprocess_data.py
-sh start.sh
-```
-
-## Citation
-
-If you find this work useful, please cite our paper:
-```bibtex
-@article{zhang2022hierarchical,
-  title={Hierarchical Graph Transformer with Adaptive Node Sampling},
-  author={Zhang, Zaixi and Liu, Qi and Hu, Qingyong and Lee, Chee-Kong},
-  journal={arXiv preprint arXiv:2210.03930},
-  year={2022}
-}
-```
+Use start.sh to train the graph transformer
