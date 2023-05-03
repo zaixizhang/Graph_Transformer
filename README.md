@@ -6,4 +6,4 @@ Our implementation is based on "Do Transformers Really Perform Bad for Graph Rep
 ## Run the code  
 Use preprocess_data.py for data preprocessing
 
-Use start.sh to train the graph transformer
+Use main.py to train the graph transformer
