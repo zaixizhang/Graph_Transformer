@@ -1,5 +1,5 @@
 import torch
-
+import random
 
 def pad_1d_unsqueeze(x, padlen):
     xlen = x.size(0)
@@ -49,6 +49,7 @@ def pad_spatial_pos_unsqueeze(x, padlen):
 
 
 def pad_3d_unsqueeze(x, padlen1, padlen2, padlen3):
+    x = x + 1
     xlen1, xlen2, xlen3, xlen4 = x.size()
     if xlen1 < padlen1 or xlen2 < padlen2 or xlen3 < padlen3:
         new_x = x.new_zeros([padlen1, padlen2, padlen3, xlen4], dtype=x.dtype)
@@ -74,11 +75,13 @@ class Batch():
         return self.y.size(0)
 
 
-def collator(items, feature, perturb=False):
+def collator(items, feature, shuffle=False, perturb=False):
     batch_list = []
     for item in items:
         for x in item:
             batch_list.append((x[0], x[1], x[2][0]))
+    if shuffle:
+        random.shuffle(batch_list)
     attn_biases, xs, ys = zip(*batch_list)
     max_node_num = max(i.size(0) for i in xs)
     y = torch.cat([i.unsqueeze(0) for i in ys])
